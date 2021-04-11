@@ -47,4 +47,3 @@ Synology: DSM 6.2.4-25556
 3. Create a new Products/Services
 - Module Settings/Module Name: PUQ Public Synology
 - Group: Name of group on Synology server for this produkt
-
