@@ -29,7 +29,9 @@ Testing:
 
 WHMCS: 8.1.0
 
-Synology: DSM 6.2.4-25556
+Synology: 
+- DSM 6.2.4-25556 
+- DSM 7.0-41222
 
 --------------------------------------------------------------
 ### WHMCS part setup guide
