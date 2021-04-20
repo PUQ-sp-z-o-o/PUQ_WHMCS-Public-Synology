@@ -7,7 +7,7 @@
  +-----------------------------------------------------------------------------------------+
  | Author: Ruslan Poloviy ruslan.polovyi@puq.pl                                            |
  | Warszawa 04.2021 PUQ sp. z o.o. www.puq.pl                                              |
- | version: 1.1                                                                            |
+ | version: 1.2                                                                            |
  +-----------------------------------------------------------------------------------------+
 */
 function puqPublicSynology_MetaData()
@@ -47,11 +47,18 @@ function puqPublicSynology_apiCurl($params,$data,$url){
     curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
 
     ## Login to API
-    curl_setopt($curl, CURLOPT_URL, 'https://' . $params['serverhostname'] . ':' . $params['serverport'] . '/webapi/auth.cgi?api=SYNO.API.Auth&method=Login&version=3&format=sid&account=' . $params['serverusername'] . '&passwd=' . $params['serverpassword']);
+    curl_setopt($curl, CURLOPT_URL, 'https://' . $params['serverhostname'] . ':' . $params['serverport'] . '/webapi/auth.cgi?api=SYNO.API.Auth&method=login&version=3&account=' . $params['serverusername'] . '&passwd=' . $params['serverpassword']);
+
     $answer = curl_exec($curl);
     $array = json_decode($answer,TRUE);
+
     if ($array['success'] != 'true'){
-      return $array;
+      curl_setopt($curl, CURLOPT_URL, 'https://' . $params['serverhostname'] . ':' . $params['serverport'] . '/webapi/auth.cgi?api=SYNO.API.Auth&method=Login&version=3&format=sid&account=' . $params['serverusername'] . '&passwd=' . $params['serverpassword']);
+      $answer = curl_exec($curl);
+      $array = json_decode($answer,TRUE);
+      if ($array['success'] != 'true'){
+        return $array;
+      }
     }
     
     ## API request
